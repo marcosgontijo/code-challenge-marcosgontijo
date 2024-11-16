@@ -75,6 +75,15 @@
             <artifactId>spring-cloud-starter-openfeign</artifactId>
             <version>4.1.3</version>
         </dependency>
+
+        <!-- Lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.34</version>
+            <scope>provided</scope>
+        </dependency>
+
     </dependencies>
 
     <!-- Configuração de plugins -->

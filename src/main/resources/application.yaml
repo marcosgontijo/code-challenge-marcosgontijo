@@ -1,2 +1,26 @@
 server:
   port: 8080
+
+spring:
+  profiles:
+    active: dev
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: dev
+api:
+  dummyjson:
+    url: https://dummyjson.dev/products
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: prod
+api:
+  dummyjson:
+    url: https://dummyjson.prod/products
