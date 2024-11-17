@@ -1,5 +1,5 @@
 
-# DummyJSON Client - Java 8 e Spring Boot 2.x.x
+# DummyJSON Client - Java 17 e Spring Boot 3.2.x (atualizado por MARCOS GONTIJO)
 
 ## Descrição do Projeto
 
@@ -26,8 +26,8 @@ dummyjson-client
 │   │   ├── java
 │   │   │   └── com.example.dummyjsonclient
 │   │   │       ├── DummyJsonClientApplication.java
-│   │   │       ├── config
-│   │   │       │   └── RestTemplateConfig.java
+│   │   │       ├── client
+│   │   │       │   └── ProductClient.java
 │   │   │       ├── controller
 │   │   │       │   └── ProductController.java
 │   │   │       ├── dto
@@ -89,18 +89,31 @@ mvn clean test
 ## Requisitos de Entrega
 
 1. Atualizar o `pom.xml` para usar Java 17+ e Spring Boot 3.2.5.
-2. Substituir `RestTemplate` por `WebClient` ou `Openfeign`.
-3. Substituir os testes unitários feitos com `JUnit 4` e `Mockito` por testes de integração utilizando `@SpringBootTest`.
-4. Refatorar qualquer código depreciado ou incompatível.
-5. Garantir que todos os testes ainda passam após a migração.
-6. Deixar a URL da API dummyjson parametrizada por ambiente no projeto.
-7. Adicionar no projeto um novo path `/health` que retorna a saude do microsserviço.
+   - atualizado o solicitado (versao java e versao spring)(OK)
+   - ajustado versão do plugin do pitest para uma versao compativel com java 17 para compilar (OK)
+   - pesquisei sobre pitest e obtive esta informação
+   (A versão 1.4.3 do Pitest não suporta o bytecode gerado pelo Java 17 (major version 61 ou superior). A versão 1.11.1 adiciona suporte ao Java 17.)
+   - adicionado maven.compiler.target>17</maven.compiler.target> para especificar que o código gerado também deve estar no nível Java 17. Sem isso o maven compilar pode gerar bytecode incompativel dependendo das configuracoes da JVM.
+   -Substituido dependências incompatíveis
+      Algumas dependencias são incompatíveis ou obsoletas com o Spring Boot 3.x e o Java 17. Foi verificado e atualizado:
+    - javax.validation foi substituído por jakarta.validation:
+     -Substituido findbugs-maven-plugin    
+     - O FindBugs foi substituído pelo SpotBugs.
+     -Ao atualizar a versao do Spring encontrei divergencias na dependencia e no uso do javax em algumas classes pois A versao do SpringBoot 3.x é baseado em jakarta. Sendo assim o mesmo foi substituido por jakarta.
+   
+
+2. Substituir `RestTemplate` por `WebClient` ou `Openfeign`. - (OK)
+3. Substituir os testes unitários feitos com `JUnit 4` e `Mockito` por testes de integração utilizando `@SpringBootTest`-  (OK)
+4. Refatorar qualquer código depreciado ou incompatível.- (OK)
+5. Garantir que todos os testes ainda passam após a migração. - (OK)
+6. Deixar a URL da API dummyjson parametrizada por ambiente no projeto - (OK)
+7. Adicionar no projeto um novo path `/health` que retorna a saude do microsserviço - (OK)
 
 ## Validação Sobre o Challenge
 
-- O projeto deve estar funcionando em Java 17 e Spring Boot 3.2.5.
-- Todos os testes unitários devem ser executados e passar sem falhas.
-- O código deve estar devidamente documentado e organizado.
+- O projeto deve estar funcionando em Java 17 e Spring Boot 3.2.5. (OK)
+- Todos os testes unitários devem ser executados e passar sem falhas. (OK)
+- O código deve estar devidamente documentado e organizado. (OK)
 
 ## Extras
 

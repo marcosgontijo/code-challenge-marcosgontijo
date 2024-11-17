@@ -1,56 +1,64 @@
 package com.example.dummyjson.service;
 
+import com.example.dummyjson.client.ProductClient;
 import com.example.dummyjson.dto.Product;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.web.client.RestTemplate;
+import com.example.dummyjson.response.ProductResponse;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
-import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+@SpringBootTest
 public class ProductServiceTest {
 
-    @InjectMocks
+    @Autowired
     private ProductService productService;
 
-    @Mock
-    private RestTemplate restTemplate;
+    @MockBean
+    private ProductClient productClient;
 
+    @Value("${api.dummyjson.url}")
+    private String apiUrl;
+
+    //ARRUMAR NULLPOINT
     @Test
     public void testGetAllProducts() {
-        Product product1 = new Product();
-        product1.setId(1L);
-        product1.setTitle("Product 1");
+        // Dados simulados
+        List<Product> mockProducts = List.of(new Product(1L, "Product1"), new Product(2L, "Product2"));
+        ProductResponse mockResponse = new ProductResponse(mockProducts);
 
-        Product product2 = new Product();
-        product2.setId(2L);
-        product2.setTitle("Product 2");
+        // Configuração do mock
+        when(productClient.getAllProducts()).thenReturn(mockResponse);
 
-        Product[] products = {product1, product2};
-        when(restTemplate.getForObject("https://dummyjson.com/products", Product[].class)).thenReturn(products);
+        // Teste do serviço
+        List<Product> products = productService.getAllProducts();
 
-        List<Product> result = productService.getAllProducts();
-        assertEquals(2, result.size());
-        assertEquals("Product 1", result.get(0).getTitle());
+        // Asserções
+        assertEquals(2, products.size());
+        assertEquals("Product1", products.get(0).getDescription());
     }
 
+    //ARRUMAR NULLPOINT
     @Test
     public void testGetProductById() {
-        Product product = new Product();
-        product.setId(1L);
-        product.setTitle("Product 1");
+        // Mockando a resposta do cliente
+        Product mockProduct = new Product(1L, "Product1");
+        when(productClient.getProductById(1L)).thenReturn(mockProduct);
 
-        when(restTemplate.getForObject("https://dummyjson.com/products/1", Product.class)).thenReturn(product);
+        // Executando o método de serviço
+        Product product = productService.getProductById(1L);
 
-        Product result = productService.getProductById(1L);
-        assertEquals("Product 1", result.getTitle());
+        // Verificando o resultado
+        Assertions.assertNotNull(product);
+        assertEquals(1L, product.getId());
+        assertEquals("Product1", product.getDescription());
     }
 }
