@@ -13,7 +13,7 @@ spring:
       on-profile: dev
 api:
   dummyjson:
-    url: https://dummyjson.dev/products
+    url: https://dummyjson.com/products
 
 ---
 
@@ -23,4 +23,4 @@ spring:
       on-profile: prod
 api:
   dummyjson:
-    url: https://dummyjson.prod/products
+    url: https://dummyjson.com/products

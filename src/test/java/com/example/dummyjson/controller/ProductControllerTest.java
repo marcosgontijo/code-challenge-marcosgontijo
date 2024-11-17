@@ -2,26 +2,24 @@ package com.example.dummyjson.controller;
 
 import com.example.dummyjson.dto.Product;
 import com.example.dummyjson.service.ProductService;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+@SpringBootTest
 public class ProductControllerTest {
 
-    @InjectMocks
+    @Autowired
     private ProductController productController;
 
-    @Mock
+    @MockBean
     private ProductService productService;
 
     @Test
@@ -38,8 +36,8 @@ public class ProductControllerTest {
         when(productService.getAllProducts()).thenReturn(products);
 
         List<Product> result = productController.getAllProducts();
-        assertEquals(2, result.size());
-        assertEquals("Product 1", result.get(0).getTitle());
+        Assertions.assertEquals(2, result.size());
+        Assertions.assertEquals("Product 1", result.get(0).getTitle());
     }
 
     @Test
@@ -51,6 +49,6 @@ public class ProductControllerTest {
         when(productService.getProductById(1L)).thenReturn(product);
 
         Product result = productController.getProductById(1L);
-        assertEquals("Product 1", result.getTitle());
+        Assertions.assertEquals("Product 1", result.getTitle());
     }
 }

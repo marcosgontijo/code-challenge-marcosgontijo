@@ -11,6 +11,15 @@ import lombok.Setter;
 @Setter
 public class Product {
 
+    public Product(){
+    }
+
+    public Product(Long id, String description) {
+    }
+
+    public Product(Long id, String product, String description) {
+    }
+
     @NotNull
     @Min(0L)
     @Max(999L)

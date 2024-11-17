@@ -9,4 +9,11 @@ import java.util.List;
 @Setter
 public class ProductResponse {
     private List<Product> products;
+
+    public ProductResponse() {
+    }
+
+    public ProductResponse(List<Product> products) {
+        this.products = products;
+    }
 }

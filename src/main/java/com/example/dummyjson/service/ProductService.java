@@ -2,8 +2,7 @@ package com.example.dummyjson.service;
 
 import com.example.dummyjson.client.ProductClient;
 import com.example.dummyjson.dto.Product;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,8 +10,8 @@ import java.util.List;
 @Service
 public class ProductService {
 
-    @Autowired
-    private Environment env;
+    @Value("${api.dummyjson.url}")
+    private String apiUrl;
 
     private final ProductClient productClient;
 
@@ -25,7 +24,7 @@ public class ProductService {
     }
 
     public Product getProductById(Long id) {
-        String url = env.getProperty("BASE_URL") + "/" + id;
+        String url = apiUrl + "/" + id;
         return productClient.getProductById(id);
     }
 }
