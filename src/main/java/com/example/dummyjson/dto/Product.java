@@ -15,6 +15,8 @@ public class Product {
     }
 
     public Product(Long id, String description) {
+        this.id = id;
+        this.description = description;
     }
 
     public Product(Long id, String product, String description) {
