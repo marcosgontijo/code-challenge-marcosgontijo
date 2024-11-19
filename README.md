@@ -118,4 +118,10 @@ mvn clean test
 ## Extras
 
 - Entregar o projeto em container será um diferencial.
+
+- 1) Após gerar o mvn install do projeto.
+- 2) docker build -t code-challenge-marcosgontijo .
+- 3) docker run -p 8000:8080 code-challenge-marcosgontijo
+
+- Comandos utilizado para deixar o projeto em container do docker.
 - Fica a critério do desenvolvedor inserir ou remover dependencias do projeto para garantir o objetivo do challenge.
